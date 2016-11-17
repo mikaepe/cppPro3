@@ -37,7 +37,7 @@ double integrate(double a, double b, double tol, functionPointer f)
                 if (node == 1) {
                     return I; // return if we are back in the root again
                 }
-                node = std::floor(0.5 * node);
+                node = std::floor(0.5 * node); //TODO behövs floor här??
                 a = 2 * a - b;
                 tol *= 2;
             }
