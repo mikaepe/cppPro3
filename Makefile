@@ -6,3 +6,4 @@ clean:
 	rm -f hello
 	rm -f file1
 	rm -f test
+	rm -f tstIntegrate
