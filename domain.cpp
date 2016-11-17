@@ -16,7 +16,8 @@ class Domain {
 	std::cout << "exit (Failure)" << std::endl;
 
       if (n_ != 0) {			// or m_ != 0
-	delete[] x_; delete[] y_;
+	delete[] x_; delete[] y_;	// Varför? För att ta bort gamla saker om vi ger 
+					// nya kurvor eller?
       }
 
       n_ = n; m_ = m;
@@ -37,6 +38,8 @@ class Domain {
     Curvebase *sides[4];
     int m_=0,n_=0;
     double *x_,*y_;			// x,y-coordinates, "underscore = internal"
+
+    // 
 
   // etc...
 };
