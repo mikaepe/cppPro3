@@ -15,6 +15,10 @@ int main(void)
 
   cout << "I = " << I << endl;
 
+  int a = 4;
+  a*=0.33;
+  cout << a << endl;
+
   return 0;
 }
 
