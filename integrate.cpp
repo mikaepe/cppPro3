@@ -32,9 +32,7 @@ double integrate(double a, double b, double tol, functionPointer f)
         errest = std::abs(I1 - I2);
         if (errest < 15 * tol) { //if leaf
             I += I2;
-            /* while uneven node: 
-             * go up until first even node
-             */
+            // while uneven node: go up until first even node
             while (node % 2 != 0) {
                 if (node == 1) {
                     return I; // return if we are back in the root again
@@ -43,10 +41,7 @@ double integrate(double a, double b, double tol, functionPointer f)
                 a = 2 * a - b;
                 tol *= 2;
             }
-            /* first even node: 
-             * - go one node up
-             * - go to the right child 
-             */
+            // first even node: go one node up - go to the right child 
             node = 0.5 * node;
             b = 2 * b - a;
             node = 2 * node + 1;
