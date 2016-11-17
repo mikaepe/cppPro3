@@ -27,15 +27,10 @@ class Domain {
 
       for (int i = 0; i<= n_; i++){
 	for (int j = 0; j<= m_; j++){
-	  x_[j+i*(m_+1)] = 
-	    phi2(i*h1)*sides[3].x(j*h2) 	// left side
-	    + phi1(i*h1)*sides[1].x(j*h2) 	// right side
-	    + phi2(j*h2)*sides[0].x(i*h1)	// bottom side
-	    + phi1(j*h2)*sides[2].x(i*h1)	// top side
-	    - phi2(i*h1)*phi2(j*h2)*x(0,0)	// fixa x(00)
-	    - phi1(i*h1)*phi2(j*h2)*x(1,0)	// fixa
-	    - phi2(j*h2)*phi1(i*h1)*x(0,1)	// fixa
-	    - phi1(i*h1)*phi2(j*h2)*x(1,1);	// fixa
+	  x_[j+i*(m_+1)] = phi1(i*h1)*sides[3]->x(j*h2)
+	    + phi2*sides[1]->x(j*h2)
+	    + term3 
+	    + term4 - corr1 -corr2 - corr3 - corr4;
 	  y_[...] = .... ;
     }
   
@@ -44,9 +39,7 @@ class Domain {
     int m_=0,n_=0;
     double *x_,*y_;			// x,y-coordinates, "underscore = internal"
 
-    // Linear interpolation functions
-    double phi1(double t) {return t;}
-    double phi2(double t) {return 1-t;}
+    // 
 
   // etc...
 };
