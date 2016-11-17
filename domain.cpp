@@ -36,7 +36,17 @@ class Domain {
 	    - phi1(i*h1)*phi2(j*h2)*x(1,0)	// fixa
 	    - phi2(j*h2)*phi1(i*h1)*x(0,1)	// fixa
 	    - phi1(i*h1)*phi2(j*h2)*x(1,1);	// fixa
-	  y_[...] = .... ;
+	  
+	  y_[j+i*(m_+1)] = 
+	    phi2(i*h1)*sides[3].y(j*h2) 	// left side
+	    + phi1(i*h1)*sides[1].y(j*h2) 	// right side
+	    + phi2(j*h2)*sides[0].y(i*h1)	// bottom side
+	    + phi1(j*h2)*sides[2].y(i*h1)	// top side
+	    - phi2(i*h1)*phi2(j*h2)*y(0,0)	// fixa x(00)
+	    - phi1(i*h1)*phi2(j*h2)*y(1,0)	// fixa
+	    - phi2(j*h2)*phi1(i*h1)*y(0,1)	// fixa
+	    - phi1(i*h1)*phi2(j*h2)*y(1,1);	// fixa
+	}
     }
   
   private:
