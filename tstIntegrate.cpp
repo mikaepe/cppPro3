@@ -11,7 +11,7 @@ int main(void)
   double I;
   double tol = 1e-3;
 
-  I = integrate(0.0, 1.0, tol, &xsquared);
+  I = integrate(0.0, 2.0, tol, &xsquared);
 
   cout << "I = " << I << endl;
 
