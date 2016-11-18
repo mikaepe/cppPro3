@@ -16,7 +16,6 @@ int main()
   D.grid_generation(3,2);
   D.print();
 
-
   return 0;
 
 }

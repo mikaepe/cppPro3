@@ -7,7 +7,7 @@ class Domain {
   
   private:
     Curvebase * sides[4];
-    int m_=0, n_=0;
+    int m_, n_;
     double *x_,*y_;			// x,y-coordinates, "underscore = internal"
 
     // Linear interpolation functions
@@ -64,8 +64,8 @@ class Domain {
 	    + phi1(j*h2)*sides[2]->x(i*h1)	// top side
 	    - phi2(i*h1)*phi2(j*h2)*sides[0]->x(0)	// fixa x(00)
 	    - phi1(i*h1)*phi2(j*h2)*sides[0]->x(1)	// fixa
-	    - phi2(j*h2)*phi1(i*h1)*sides[2]->x(0)	// fixa
-	    - phi1(i*h1)*phi2(j*h2)*sides[2]->x(1);	// fixa
+	    - phi2(i*h1)*phi1(j*h2)*sides[2]->x(0)	// fixa
+	    - phi1(i*h1)*phi1(j*h2)*sides[2]->x(1);	// fixa
 	  
 	  y_[j+i*(m_+1)] = 
 	    phi2(i*h1)*sides[3]->y(j*h2) 	// left side
@@ -74,8 +74,8 @@ class Domain {
 	    + phi1(j*h2)*sides[2]->y(i*h1)	// top side
 	    - phi2(i*h1)*phi2(j*h2)*sides[0]->y(0)	// fixa x(00)
 	    - phi1(i*h1)*phi2(j*h2)*sides[0]->y(1)	// fixa
-	    - phi2(j*h2)*phi1(i*h1)*sides[2]->y(0)	// fixa
-	    - phi1(i*h1)*phi2(j*h2)*sides[2]->y(1);	// fixa
+	    - phi2(i*h1)*phi1(j*h2)*sides[2]->y(0)	// fixa
+	    - phi1(i*h1)*phi1(j*h2)*sides[2]->y(1);	// fixa
 	}
       }
     }
