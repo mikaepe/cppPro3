@@ -1,3 +1,8 @@
+
+#include<iostream>
+#include"integrate.cpp"
+
+
 class Curvebase {
   protected:
     double pmin;
@@ -7,16 +12,16 @@ class Curvebase {
     int rev; // orientation of the curve
     double length;
 
-    virtual double xp(double p) = 0;
-    virtual double yp(double p) = 0;
-    virtual double dxp(double p) = 0;
-    virtual double dyp(double p) = 0;
+    virtual double xp(double p) = 0;	//parametrized by user 
+    virtual double yp(double p) = 0;	//parametrized by user
+    virtual double dxp(double p) = 0;	//dx(p)/dp for arc length
+    virtual double dyp(double p) = 0;	//dy(p)/dp for arc length
     double integrate(double a, double b); //arc length integral
   
   public:
     Curvebase() {}; 			//default constructor
-    virtual double x(double s); 	//arc length parametrization
-    virtual double y(double s); 	//arc length parametrization
+    virtual double x(double s); 	//parametrized by normalized arc length
+    virtual double y(double s); 	//parametrized by normalized arc length
 
 };
 
@@ -37,40 +42,44 @@ double Curvebase::y(double s){
   return 0;
 }
 
-// curves for lines with constant y
-// konstruktor: start-x, slut-x, konstant-y
-// overwrite integrate, xp, yp, dxp, dyp, x(s), y(s)
+
+
+
+
+
+/* xLine: curves for lines with constant y
+ * constructor: xi - start-x, xf - end-x, y0 - constant y 
+ * overwrite integrate, xp, yp, dxp, dyp, x(s) and y(s)
+ */
 class xLine: public Curvebase{
-public:
+  public:
     xLine(double xi, double xf, double y0){
-        xStart = xi;
-        xStop = xf;
-        yConst = y0;
-        length = xf-xi;
+      xStart = xi;
+      xStop = xf;		//TODO use initialization lists instead??
+      yConst = y0;
+      length = xf-xi;
     }
     double x(double s); //arc length parametrization
     double y(double s); //arc length parametrization
-protected:
+
+    // TODO remove below, for testing only
+    // double integrate2(double a, double b);
+    // double integrand(double p) {
+    //   return sqrt(dxp(p)*dxp(p) + dyp(p)*dyp(p));
+    //}
+  protected:
     double xStart;
     double xStop;
     double yConst;
-    double xp(double p){
-        return p;
-    };
-    double yp(double p){
-        return yConst;
-    };
-    double dxp(double p){
-        return 1;
-    };
-    double dyp(double p){
-        return 0;
-    };
+    double xp(double p) { return p; }
+    double yp(double p) { return yConst; }
+    double dxp(double p) { return 1; }
+    double dyp(double p) { return 0; }
     double integrate(double a, double b); //arc length integral
 };
 
 double xLine::integrate(double a, double b){
-    return (b-a);
+  return (b-a);
 };
 
 // do arc length parametrization
@@ -84,51 +93,54 @@ double xLine::x(double s){
 };
 
 
-// curve for lines with constant x
-// konstruktor: start-y, slut-y, konstant-x
-// overwrite integrate, xp, yp, dxp, dyp, x(s), y(s)
+
+
+
+
+
+/* yLine: curves for lines with constant x
+ * constructor: yi - start-y, yf - end-y, x0 - constant x 
+ * overwrite integrate, xp, yp, dxp, dyp, x(s) and y(s)
+ */
 class yLine: public Curvebase{
-public:
+  public:
     yLine(double yi, double yf, double x0){
-        yStart = yi;
-        yStop = yf;
-        xConst = x0;
-        length = yf-yi;
+      yStart = yi;
+      yStop = yf;
+      xConst = x0;
+      length = yf-yi;
     }
     double x(double s); //arc length parametrization
     double y(double s); //arc length parametrization
-protected:
+  protected:
     double yStart;
     double yStop;
     double xConst;
-    double xp(double p){
-        return xConst;
-    };
-    double yp(double p){
-        return p;
-    };
-    double dxp(double p){
-        return 0;
-    };
-    double dyp(double p){
-        return 1;
-    };
+    double xp(double p){ return xConst; }
+    double yp(double p){ return p; }
+    double dxp(double p){ return 0; }
+    double dyp(double p){ return 1; }
     double integrate(double a, double b); //arc length integral
 };
 
 double yLine::integrate(double a, double b){
-    return (b-a);
+  return (b-a);
 };
 
 // do arc length parametrization
 double yLine::x(double s){
-    return xConst;
+  return xConst;
 };
 
 // do arc length parametrization
 double yLine::y(double s){
-    return yStart+s*length;
+  return yStart+s*length;
 };
+
+
+
+
+
 
 
 class fCurve: public Curvebase{
