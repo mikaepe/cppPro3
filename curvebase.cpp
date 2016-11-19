@@ -1,5 +1,5 @@
 class Curvebase {
-protected:
+  protected:
     double pmin;
     double pmax;
     double a;
@@ -12,29 +12,29 @@ protected:
     virtual double dxp(double p) = 0;
     virtual double dyp(double p) = 0;
     double integrate(double a, double b); //arc length integral
-
-public:
-    Curvebase() {}; 		//constructor
+  
+  public:
+    Curvebase() {}; 			//default constructor
     virtual double x(double s); 	//arc length parametrization
     virtual double y(double s); 	//arc length parametrization
 
 };
 
-// use integration from project 1 to do arc length integration (see p 10 inheritance slides)
+// TODO use integration from project 1 to do arc length integration (see p 10 inheritance slides)
 double Curvebase::integrate(double a, double b){
-    return 0;
+  return 0;
 }
 
 // do arc length parametrization
-// compute p by Newtons method (see lecture 06) and return xp(p)
+// TODO compute p by Newtons method (see lecture 06) and return xp(p)
 double Curvebase::x(double s){
-    return 0;
+  return 0;
 }
 
 // do arc length parametrization
-// compute p by Newtons method (see lecture 06) and return yp(p)
+// TODO compute p by Newtons method (see lecture 06) and return yp(p)
 double Curvebase::y(double s){
-    return 0;
+  return 0;
 }
 
 // curves for lines with constant y
