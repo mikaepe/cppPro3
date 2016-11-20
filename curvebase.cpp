@@ -1,4 +1,5 @@
 
+#include<cmath>
 #include<iostream>
 #include"asi.cpp"
 
@@ -17,6 +18,7 @@ class Curvebase {
     virtual double dxp(double p) = 0;	//dx(p)/dp for arc length
     virtual double dyp(double p) = 0;	//dy(p)/dp for arc length
     double integrate(double a, double b); //arc length integral
+
   
   public:
     Curvebase() {}; 			//default constructor
@@ -90,9 +92,6 @@ double xLine::x(double s){
 
 
 
-
-
-
 /* yLine: curves for lines with constant x
  * constructor: yi - start-y, yf - end-y, x0 - constant x 
  * overwrite integrate, xp, yp, dxp, dyp, x(s) and y(s)
@@ -133,6 +132,61 @@ double yLine::y(double s){
 };
 
 
+
+
+/* xQuad: curves y = c2*x^2+c1*x+c0
+ * constructor: x0,x1 - interval boundaries for x: [x0,x1]
+ * overwrite xp, yp, dxp, dyp, x(s), y(s), integrate etc... TODO
+ */
+class xQuad: public Curvebase {
+  public:
+    xQuad(double c0, double c1, double c2, double x0, double x1)
+    {
+      c0_ = c0; c1_ = c1; c2_ = c1; x0_ = x0; x1_ = x1;
+    }
+    double x(double s);		// curve in normalized coordinate
+    double y(double s);		// curve in normalized coordinate
+
+    double integrate(double a, double b);	//arc length integral
+
+  protected:
+    double c0_, c1_, c2_, x0_, x1_;
+    double xp(double p) {return p;}
+    double yp(double p) {return c2_*p*p + c1_*p + c0_;}
+    double dxp(double p) {return 1;}
+    double dyp(double p) {return 2*c2_*p + c1_;}
+
+    static double dL(double p)
+    {
+
+      // TODO this is what we want: 
+      //return sqrt(dxp(p)*dxp(p) + dyp(p)*dyp(p));
+
+      return sqrt((2*p - 3)*(2*p - 3) + 1);
+    }
+
+};
+
+// TODO fix all this
+double xQuad::integrate(double a, double b){
+
+  double L, tol = 1e-4;
+  L = asi(x0_,x1_,tol,&dL);
+  return L;
+
+}
+
+// TODO fix all this
+double xQuad::x(double s){
+  return x0_ + s*(x1_-x0_);
+}
+
+// TODO fix all this
+double xQuad::y(double s){
+  double xx;
+  xx = x0_ + s*(x1_-x0_);
+  return c2_*xx*xx + c1_*xx + c2_;
+}
 
 
 

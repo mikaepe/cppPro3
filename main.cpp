@@ -12,13 +12,15 @@ int main()
   xLine c = xLine(1.0,2.0,2.0);
   yLine d = yLine(1.0,2.0,1.0);
   
-  //double l;
-  //l = a.integrate2(1.0,2.0);
-  //cout << "length a = " << l << endl;
-
   Domain D = Domain(a,b,c,d);
   D.grid_generation(3,2);
   D.print();
+
+
+  xQuad yy = xQuad(2.0,-3.0,1.0,1.0,2.0);
+  double L;
+  L = yy.integrate(1.0,2.0);
+  cout << "L = " << L << endl;
 
   return 0;
 
