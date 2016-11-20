@@ -1,6 +1,6 @@
 
 #include<iostream>
-#include"integrate.cpp"
+#include"asi.cpp"
 
 
 class Curvebase {
@@ -62,11 +62,6 @@ class xLine: public Curvebase{
     double x(double s); //arc length parametrization
     double y(double s); //arc length parametrization
 
-    // TODO remove below, for testing only
-    // double integrate2(double a, double b);
-    // double integrand(double p) {
-    //   return sqrt(dxp(p)*dxp(p) + dyp(p)*dyp(p));
-    //}
   protected:
     double xStart;
     double xStop;

@@ -5,7 +5,7 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
-#include "integrate.cpp"
+#include "asi.cpp"
 #include "newtsolve.cpp"
 
 class Point{
@@ -42,7 +42,7 @@ class Point{
     double integr8(double a,double b){
       double res, tol;
       tol = 1e-6;
-      res = integrate(a,b,tol,&fx);
+      res = asi(a,b,tol,&fx);
       return res;
     }
 

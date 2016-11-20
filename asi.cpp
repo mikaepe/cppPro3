@@ -1,5 +1,5 @@
 
-#include"integrate.hpp"
+#include"asi.hpp"
 #include<cmath>
 
 // function declarations	::	::	::
@@ -7,7 +7,7 @@
 double iSimpson(double a, double b, fctnPtr f);
 double mid(double x, double y);
 double i2Simpson(double a, double b, fctnPtr f);
-double integrate(double a, double b, double tol, fctnPtr f);
+double asi(double a, double b, double tol, fctnPtr f);
 
 // function definitions	::	::	::	::
 
@@ -21,7 +21,7 @@ double integrate(double a, double b, double tol, fctnPtr f);
  * In the right child a is changed to mid(a,b) and tol=tol/2
  * The parent of a node is given by floor(0.5*node) if node!=1
  */
-double integrate(double a, double b, double tol, fctnPtr f) 
+double asi(double a, double b, double tol, fctnPtr f) 
 {
     double I = 0, I1, I2, errest;
     int node = 1;
