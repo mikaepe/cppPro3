@@ -4,10 +4,10 @@
 
 // function declarations	::	::	::
 
-double iSimpson(double a, double b, functionPointer f);
+double iSimpson(double a, double b, fctnPtr f);
 double mid(double x, double y);
-double i2Simpson(double a, double b, functionPointer f);
-double integrate(double a, double b, double tol, functionPointer f);
+double i2Simpson(double a, double b, fctnPtr f);
+double integrate(double a, double b, double tol, fctnPtr f);
 
 // function definitions	::	::	::	::
 
@@ -21,7 +21,7 @@ double integrate(double a, double b, double tol, functionPointer f);
  * In the right child a is changed to mid(a,b) and tol=tol/2
  * The parent of a node is given by floor(0.5*node) if node!=1
  */
-double integrate(double a, double b, double tol, functionPointer f) 
+double integrate(double a, double b, double tol, fctnPtr f) 
 {
     double I = 0, I1, I2, errest;
     int node = 1;
@@ -58,7 +58,7 @@ double integrate(double a, double b, double tol, functionPointer f)
 }
 
 // Simpson of left half interval and right half interval of (a,b)
-double i2Simpson(double a, double b, functionPointer f)
+double i2Simpson(double a, double b, fctnPtr f)
 {
   return iSimpson(a,mid(a,b),f) + iSimpson(mid(a,b),b,f);
 }
@@ -70,7 +70,7 @@ double mid(double x, double y)
 }
 
 // Simpson quadrature between a and b
-double iSimpson(double a, double b, functionPointer f)
+double iSimpson(double a, double b, fctnPtr f)
 {
   return ((b-a)/6.0)*(f(a)+4.0*f(0.5*(a+b)) + f(b));
 }

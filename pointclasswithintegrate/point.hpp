@@ -6,12 +6,6 @@
 
 #include "integrate.cpp"
 
-//typedef double (*funcPtr)(double);
-//double integrate(double t, funcPtr f)
-//{
-//  return 10*f(t);
-//}
-
 class Point{
   private:
     double x;			 	// Data members
