@@ -1,8 +1,7 @@
 
 #include<cmath>
 #include<iostream>
-
-//typedef double (*fctnPtr)(double);
+#include"asi.cpp"
 
 
 class Curvebase {
@@ -18,36 +17,19 @@ class Curvebase {
     virtual double yp(double p) = 0;	//parametrized by user
     virtual double dxp(double p) = 0;	//dx(p)/dp for arc length
     virtual double dyp(double p) = 0;	//dy(p)/dp for arc length
-    
-
-    /* integrate and supporting functions:
-     * all is directly taken from project 1
-     */
-    double asi(double a, double b); //arc length integral
-    double mid(double a, double b) {return 0.5*(a+b);}
-    double i2Simpson(double a, double b) {
-      return iSimpson(a,mid(a,b)) + iSimpson(mid(a,b),b);
-    }
-    double iSimpson(double a, double b) {
-      return ((b-a)/6.0)*(dL(a)+4.0*dL(0.5*(a+b)) + dL(b));
-    }
-    double dL(double t){
-      return sqrt(dxp(t)*dxp(t)+dyp(t)*dyp(t));
-    }
+    double integrate(double a, double b); //arc length integral
 
   
   public:
     Curvebase() {}; 			//default constructor
     virtual double x(double s); 	//parametrized by normalized arc length
     virtual double y(double s); 	//parametrized by normalized arc length
-    double integrate(double a, double b);
 
 };
 
 // TODO use integration from project 1 to do arc length integration (see p 10 inheritance slides)
 double Curvebase::integrate(double a, double b){
-  double tolI = 1e-4;
-  return asi(a,b,tolI);
+  return 0;
 }
 
 // do arc length parametrization
@@ -174,9 +156,25 @@ class xQuad: public Curvebase {
     double dxp(double p) {return 1;}
     double dyp(double p) {return 2*c2_*p + c1_;}
 
+    static double dL(double p)
+    {
+
+      // TODO this is what we want: 
+      //return sqrt(dxp(p)*dxp(p) + dyp(p)*dyp(p));
+
+      return sqrt((2*p - 3)*(2*p - 3) + 1);
+    }
 
 };
 
+// TODO fix all this
+double xQuad::integrate(double a, double b){
+
+  double L, tol = 1e-4;
+  L = asi(x0_,x1_,tol,&dL);
+  return L;
+
+}
 
 // TODO fix all this
 double xQuad::x(double s){
