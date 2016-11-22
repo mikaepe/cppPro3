@@ -1,12 +1,16 @@
 /* testing:
- * a basic class with ASI-integral and Newtonsolver
+ * a basic class
  */
 
 #ifndef POINT_HPP
 #define POINT_HPP
 
-#include "asi.cpp"
-#include "newtsolve.cpp"
+class Point;
+typedef (Point::*fctnPtr)(double);
+//double asi(double a, double b, double tol, double , double A* p);
+
+#include "asi2.cpp"
+// #include "newtsolve.cpp"
 
 class Point{
   private:
@@ -34,7 +38,7 @@ class Point{
       return 2.0*x*t + y;
     }
 
-    /*
+    /* THIS IS WHAT I WANT TO DO
     double integr8(double a,double b){
       double res, tol;
       tol = 1e-2;
