@@ -39,14 +39,16 @@ class Curvebase {
       return sqrt(dxp(t)*dxp(t)+dyp(t)*dyp(t));
     }
 
+
   
   public:
     Curvebase() {}; 			//default constructor
     virtual double x(double s); 	//parametrized by normalized arc length
     virtual double y(double s); 	//parametrized by normalized arc length
 
-    double integrate(double a, double b);	// TODO move to protected, public only
-    						// for testing
+    // TODO Move to protected, public only for testing
+    double integrate(double a, double b);
+    double newtonsolve(double p0);
 
 };
 
@@ -88,6 +90,32 @@ double Curvebase::integrate(double a, double b){
   }
   return I;
 }
+
+/* Newton solver for equation f(p) = l(p) - s*l(b)
+ * input: p0 is initial guess for Newtons method.
+ */
+double Curvebase::newtonsolve(double p0) {
+  int iter = 0, maxiter = 100;
+  double tolN = 1e-4;
+  double err = 10.0;
+  double p1,p;
+  p = p0;
+  while (err > tolN && iter < maxiter) {
+    // TODO change yp to integrate(blabla) and dyp to dL(p)
+    p1 = p - yp(p)/dyp(p);
+    err = fabs(p1 - p);
+    p = p1; iter++;
+  }
+
+  if (iter == maxiter) {
+    std::cout << "No convergence in Newton solver" << std::endl;
+  }
+
+  return p;
+}
+
+
+
 
 // do arc length parametrization
 // TODO compute p by Newtons method (see lecture 06) and return xp(p)
