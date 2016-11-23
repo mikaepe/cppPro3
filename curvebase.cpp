@@ -3,9 +3,12 @@
 #include<iostream>
 
 class Curvebase {
+  
   protected:
+    
     //double pmin;
     //double pmax;
+    
     double a;
     double b;
     int rev; // orientation of the curve
@@ -15,13 +18,14 @@ class Curvebase {
     virtual double yp(double p) = 0;	//parametrized by user
     virtual double dxp(double p) = 0;	//dx(p)/dp for arc length
     virtual double dyp(double p) = 0;	//dy(p)/dp for arc length
-    
 
-    /* integrate and supporting functions:
+    /* integrate(double a, double b) and its supporting functions:
      * all is directly taken from project 1
      */
+
     //double mid(double a, double b) {return 0.5*(a+b);} 
     // TODO tog bort mid, känns som onödig overhead
+    
     double i2Simpson(double a, double b) {
       return iSimpson(a,0.5*(a+b)) + iSimpson(0.5*(a+b),b);
     }
@@ -37,7 +41,9 @@ class Curvebase {
     Curvebase() {}; 			//default constructor
     virtual double x(double s); 	//parametrized by normalized arc length
     virtual double y(double s); 	//parametrized by normalized arc length
-    double integrate(double a, double b);
+
+    double integrate(double a, double b);	// TODO move to protected, public only
+    						// for testing
 
 };
 
@@ -54,17 +60,21 @@ double Curvebase::integrate(double a, double b){
     if (errest < 15*tolI) { //if leaf
       I += I2;
       while (node % 2 != 0) { // while uneven node
+
 	if (node == 1) { 
 	  return I; // return if we are back at root again
 	}
-	node = std::floor(0.5*node); // TODO behövs floor här?
+
+	//node = std::floor(0.5*node); // TODO behövs floor här?
+	node = 0.5*node;	// TODO ändrat här...
 	a = 2*a-b;
 	tolI *= 2;
       }
       // First even node: go one node up - go to right child
-      node = 0.5*node;
+      //node = 0.5*node;
       b = 2*b-a;
-      node = 2*node+1;
+      //node = 2*node+1;
+      node = node+1;	// TODO ändrat här..... ok?
       a = 0.5*(a+b);
     } else { //if not a leaf: go to left child
       node *= 2;
