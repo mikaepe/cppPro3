@@ -2,13 +2,10 @@
 #include<cmath>
 #include<iostream>
 
-//typedef double (*fctnPtr)(double);
-
-
 class Curvebase {
   protected:
-    double pmin;
-    double pmax;
+    //double pmin;
+    //double pmax;
     double a;
     double b;
     int rev; // orientation of the curve
@@ -23,15 +20,15 @@ class Curvebase {
     /* integrate and supporting functions:
      * all is directly taken from project 1
      */
-    double asi(double a, double b); //arc length integral
-    double mid(double a, double b) {return 0.5*(a+b);}
+    //double mid(double a, double b) {return 0.5*(a+b);} 
+    // TODO tog bort mid, känns som onödig overhead
     double i2Simpson(double a, double b) {
-      return iSimpson(a,mid(a,b)) + iSimpson(mid(a,b),b);
+      return iSimpson(a,0.5*(a+b)) + iSimpson(0.5*(a+b),b);
     }
     double iSimpson(double a, double b) {
       return ((b-a)/6.0)*(dL(a)+4.0*dL(0.5*(a+b)) + dL(b));
     }
-    double dL(double t){
+    double dL(double t){ 		//integrand for the length integral
       return sqrt(dxp(t)*dxp(t)+dyp(t)*dyp(t));
     }
 
@@ -44,10 +41,38 @@ class Curvebase {
 
 };
 
-// TODO use integration from project 1 to do arc length integration (see p 10 inheritance slides)
+// Integration from project 1
 double Curvebase::integrate(double a, double b){
   double tolI = 1e-4;
-  return asi(a,b,tolI);
+  double I = 0, I1, I2, errest;
+  int node = 1;
+
+  while (true) {
+    I1 = iSimpson(a,b);
+    I2 = i2Simpson(a,b);
+    errest = std::abs(I1-I2);
+    if (errest < 15*tolI) { //if leaf
+      I += I2;
+      while (node % 2 != 0) { // while uneven node
+	if (node == 1) { 
+	  return I; // return if we are back at root again
+	}
+	node = std::floor(0.5*node); // TODO behövs floor här?
+	a = 2*a-b;
+	tolI *= 2;
+      }
+      // First even node: go one node up - go to right child
+      node = 0.5*node;
+      b = 2*b-a;
+      node = 2*node+1;
+      a = 0.5*(a+b);
+    } else { //if not a leaf: go to left child
+      node *= 2;
+      b = 0.5*(a+b);
+      tolI *= 0.5;
+    }
+  }
+  return I;
 }
 
 // do arc length parametrization
@@ -111,24 +136,21 @@ double xLine::x(double s){
 
 
 /* yLine: curves for lines with constant x
- * constructor: yi - start-y, yf - end-y, x0 - constant x 
+ * constructor: y0 - start-y, y1 - end-y, xC - constant x 
  * overwrite integrate, xp, yp, dxp, dyp, x(s) and y(s)
  */
 class yLine: public Curvebase{
   public:
-    yLine(double yi, double yf, double x0){
-      yStart = yi;
-      yStop = yf;
-      xConst = x0;
-      length = yf-yi;
-    }
+    yLine(double yy0, double yy1, double xxC) : y0(yy0), y1(yy1), xC(xxC) {
+      length = yy1 - yy0;
+      }
     double x(double s); //arc length parametrization
     double y(double s); //arc length parametrization
   protected:
-    double yStart;
-    double yStop;
-    double xConst;
-    double xp(double p){ return xConst; }
+    double y0;
+    double y1;
+    double xC;
+    double xp(double p){ return xC; }
     double yp(double p){ return p; }
     double dxp(double p){ return 0; }
     double dyp(double p){ return 1; }
@@ -141,53 +163,51 @@ double yLine::integrate(double a, double b){
 
 // do arc length parametrization
 double yLine::x(double s){
-  return xConst;
+  return xC;
 };
 
 // do arc length parametrization
 double yLine::y(double s){
-  return yStart+s*length;
+  return y0+s*length;
 };
 
 
 
 
 /* xQuad: curves y = c2*x^2+c1*x+c0
- * constructor: x0,x1 - interval boundaries for x: [x0,x1]
- * overwrite xp, yp, dxp, dyp, x(s), y(s), integrate etc... TODO
+ *
+ * constructor:	c2, c1, c0 coefficients for quadratic curve 
+ * 		x0,x1 - interval boundaries for x: [x0,x1]
+ *
+ * overwrite xp, yp, dxp, dyp, x(s), y(s), etc... TODO
  */
 class xQuad: public Curvebase {
   public:
-    xQuad(double c0, double c1, double c2, double x0, double x1)
-    {
-      c0_ = c0; c1_ = c1; c2_ = c1; x0_ = x0; x1_ = x1;
-    }
+    xQuad(double cc2, double cc1, double cc0, double xx0, double xx1) :
+      c2(cc2), c1(cc1), c0(cc0), x0(xx0), x1(xx1) {}
     double x(double s);		// curve in normalized coordinate
     double y(double s);		// curve in normalized coordinate
 
-    double integrate(double a, double b);	//arc length integral
+    //double integrate(double a, double b);	//arc length integral
 
   protected:
-    double c0_, c1_, c2_, x0_, x1_;
+    double c2, c1, c0, x0, x1;
     double xp(double p) {return p;}
-    double yp(double p) {return c2_*p*p + c1_*p + c0_;}
+    double yp(double p) {return c2*p*p + c1*p + c0;}
     double dxp(double p) {return 1;}
-    double dyp(double p) {return 2*c2_*p + c1_;}
-
-
+    double dyp(double p) {return 2*c2*p + c1;}
 };
-
 
 // TODO fix all this
 double xQuad::x(double s){
-  return x0_ + s*(x1_-x0_);
+  return x0 + s*(x1-x0);
 }
 
 // TODO fix all this
 double xQuad::y(double s){
   double xx;
-  xx = x0_ + s*(x1_-x0_);
-  return c2_*xx*xx + c1_*xx + c2_;
+  xx = x0 + s*(x1-x0);
+  return c2*xx*xx + c1*xx + c2;
 }
 
 

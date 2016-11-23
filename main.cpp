@@ -17,9 +17,17 @@ int main()
   D.print();
 
 
-  xQuad yy = xQuad(2.0,-3.0,1.0,1.0,2.0);
+  xQuad yy = xQuad(0.0,1.0,1.0,1.0,2.0);
+  // y = 0+x+1, x in [1,2]
   double L;
   L = yy.integrate(1.0,2.0);
+  // length should be sqrt(2):
+  cout << "L = " << L << endl;
+
+  xQuad yy2 = xQuad(-1.0,1.0,0.0,0.0,1.0);
+  // y = -x^2 + x = -x(x-1), x in [1,2]
+  // length should be 1.1478 (from wolfram alpha)
+  L = yy2.integrate(0,1);
   cout << "L = " << L << endl;
 
   return 0;
