@@ -1,6 +1,6 @@
 
-#ifndef CPPPRO3_CURVEBASE_H
-#define CPPPRO3_CURVEBASE_H
+#ifndef CURVEBASE_H
+#define CURVEBASE_H
 
 
 #include<cmath>
@@ -130,5 +130,8 @@ class fCurve: public Curvebase{
     // konstruktor: start-x, skift-x, slut-z
 // overwrite xp, yp, dxp, dyp
 };
+
+
+
 #endif
 

@@ -7,17 +7,25 @@ using namespace std;
 
 int main()
 {
+  /*
   xLine a = xLine(1.0,2.0,1.0);
   yLine b = yLine(1.0,2.0,2.0);
   xLine c = xLine(1.0,2.0,2.0);
   yLine d = yLine(1.0,2.0,1.0);
-  
+  */
+
+  xQuad a = xQuad(-1,1,0,0,1);
+  yLine b = yLine(0,2,1);
+  xLine c = xLine(0,1,2);
+  yLine d = yLine(0,2,0);
+
   Domain D = Domain(a,b,c,d);
   D.grid_generation(3,2);
   D.print();
   //D.writeFile();
 
 
+  /*
   xQuad yy = xQuad(0.0,1.0,1.0,1.0,2.0);
   // y = 0+x+1, x in [1,2]
   double L;
@@ -38,6 +46,8 @@ int main()
   sol = yy2.newtonsolve(1.80);
   cout << "root2 = " << sol << endl;
 
+  */
+    
   return 0;
 
 
