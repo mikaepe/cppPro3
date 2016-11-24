@@ -2,8 +2,8 @@
 
 using namespace std;
 
-#include"curvebase.h"
-#include"domain.h"
+#include"curvebase.cpp"
+#include"domain.cpp"
 
 int main()
 {

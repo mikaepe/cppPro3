@@ -102,6 +102,12 @@ protected:
     double integrate(double a, double b); //arc length integral
 };
 
+
+
+
+
+
+
 /* xQuad: curves y = c2*x^2+c1*x+c0
  *
  * constructor:	c2, c1, c0 coefficients for quadratic curve
@@ -110,26 +116,50 @@ protected:
  * overwrite xp, yp, dxp, dyp, x(s), y(s), etc... TODO
  */
 class xQuad: public Curvebase {
-public:
+  public:
     xQuad(double cc2, double cc1, double cc0, double xx0, double xx1) :
-            c2(cc2), c1(cc1), c0(cc0), x0(xx0), x1(xx1) {
-        length = integrate(x0,x1);
-        std::cout << length << std::endl;
+            c2(cc2), c1(cc1), c0(cc0), a(xx0), b(xx1) {
+        length = integrate(a,b);
     }
-    //double x(double s);		// curve in normalized coordinate
-    //double y(double s);		// curve in normalized coordinate
-
-    //double integrate(double a, double b);	//arc length integral
-
-protected:
-    double c2, c1, c0, x0, x1;
+  protected:
+    double c2, c1, c0, a, b;
     double xp(double p) {return p;}
     double yp(double p) {return c2*p*p + c1*p + c0;}
     double dxp(double p) {return 1;}
     double dyp(double p) {return 2*c2*p + c1;}
 };
 
-class fCurve: public Curvebase{
+
+
+
+
+
+
+
+class fxCurve: public Curvebase{
+  public:
+    fxCurve(double xx0, double xx1) : a(xx0), b(xx1) {
+      length = integrate(a,b);
+    }
+    double yyp(double p) {return dyp(p);}
+  protected:
+    double a,b;
+    double xp(double p) {return p;}
+    double dxp(double p) {return 1.0;}
+    double yp(double p) {
+      if (p < -3.0) {
+	return 0.5/(1 + exp(-3.0*(p+6.0)));
+      } else {
+	return 0.5*(1.0/(1 + exp(3.0*p)));
+      }
+    }
+    double dyp(double p) {
+      if (p < -3.0) {
+	return 6.0*exp(-3.0*(p+6))*yp(p)*yp(p);
+      } else {
+	return -6.0*exp(3.0*p)*yp(p)*yp(p);
+      }
+    }
     // konstruktor: start-x, skift-x, slut-z
 // overwrite xp, yp, dxp, dyp
 };

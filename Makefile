@@ -7,4 +7,5 @@ clean:
 	rm -f file1
 	rm -f test
 	rm -f tstIntegrate
+	rm -f main2
 	rm -f main
