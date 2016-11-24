@@ -1,3 +1,5 @@
+#include<cstdio>
+#include <iostream>
 
 
 class Domain {
@@ -85,7 +87,14 @@ class Domain {
 	  std::cout << "[" << x_[i] << "," << y_[i] << "]" << std::endl;
 	}
       }
-  
+
+    void writeFile(){
+        FILE *fp;
+        fp =fopen("outfile.bin","wb");
+        fwrite(x_,sizeof(double),(n_+1)*(m_+1),fp);
+        fwrite(y_,sizeof(double),(n_+1)*(m_+1),fp);
+        fclose(fp);
+    }
 };
 
 
