@@ -127,7 +127,7 @@ double yLine::y(double s){
 
 
 
-
+/*
 // TODO fix all this
 double xQuad::x(double s){
   return x0 + s*(x1-x0);
@@ -139,3 +139,4 @@ double xQuad::y(double s){
   xx = x0 + s*(x1-x0);
   return c2*xx*xx + c1*xx + c2;
 }
+ */

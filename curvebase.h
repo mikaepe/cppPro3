@@ -50,7 +50,7 @@ public:
 
     // TODO Move to protected, public only for testing
     double integrate(double a, double b);
-    double newtonsolve(double p0);
+    double newtonsolve(double p0, double s);
 
 };
 
@@ -112,9 +112,12 @@ protected:
 class xQuad: public Curvebase {
 public:
     xQuad(double cc2, double cc1, double cc0, double xx0, double xx1) :
-            c2(cc2), c1(cc1), c0(cc0), x0(xx0), x1(xx1) {}
-    double x(double s);		// curve in normalized coordinate
-    double y(double s);		// curve in normalized coordinate
+            c2(cc2), c1(cc1), c0(cc0), x0(xx0), x1(xx1) {
+        length = integrate(x0,x1);
+        std::cout << length << std::endl;
+    }
+    //double x(double s);		// curve in normalized coordinate
+    //double y(double s);		// curve in normalized coordinate
 
     //double integrate(double a, double b);	//arc length integral
 
