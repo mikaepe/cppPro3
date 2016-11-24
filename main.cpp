@@ -2,8 +2,8 @@
 
 using namespace std;
 
-#include"curvebase.cpp"
-#include"domain.cpp"
+#include"curvebase.h"
+#include"domain.h"
 
 int main()
 {
@@ -15,6 +15,7 @@ int main()
   Domain D = Domain(a,b,c,d);
   D.grid_generation(3,2);
   D.print();
+  //D.writeFile();
 
 
   xQuad yy = xQuad(0.0,1.0,1.0,1.0,2.0);
@@ -36,8 +37,6 @@ int main()
   cout << "root1 = " << sol << endl;
   sol = yy2.newtonsolve(1.80);
   cout << "root2 = " << sol << endl;
-
-
 
   return 0;
 
