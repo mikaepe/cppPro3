@@ -26,11 +26,9 @@ class Curvebase {
     //double mid(double a, double b) {return 0.5*(a+b);} 
     // TODO tog bort mid, känns som onödig overhead
 
-    /* TODO tog bort i2Simpson och ersatte med return-uttrycket
     double i2Simpson(double a, double b) {
       return iSimpson(a,0.5*(a+b)) + iSimpson(0.5*(a+b),b);
     }
-    */
 
     double iSimpson(double a, double b) {
       return ((b-a)/6.0)*(dL(a)+4.0*dL(0.5*(a+b)) + dL(b));
@@ -60,8 +58,8 @@ double Curvebase::integrate(double a, double b){
 
   while (true) {
     I1 = iSimpson(a,b);
-    //I2 = i2Simpson(a,b); // TODO tog bort här
-    I2 = ((b-a)/6.0)*(dL(a)+4.0*dL(0.5*(a+b)) + dL(b)); // TODO ändrat till det här
+    I2 = i2Simpson(a,b); // TODO tog bort här
+    //I2 = ((b-a)/6.0)*(dL(a)+4.0*dL(0.5*(a+b)) + dL(b)); // TODO ändrat till det här
     errest = std::abs(I1-I2);
     if (errest < 15*tolI) { //if leaf
       I += I2;
