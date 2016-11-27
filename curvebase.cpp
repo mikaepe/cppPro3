@@ -49,9 +49,12 @@ double Curvebase::newtonsolve(double p0, double s) {
   double err = 10.0;
   double p1,p;
   p = p0;
+  std::cout << "a_newton = " << a << std::endl;
   while (err > tolN && iter < maxiter) {
 
     std::cout << "p_newton = " << p << std::endl;
+    std::cout << "int(a,p) = " << integrate(a,p) << std::endl;
+    std::cout << "dL(p)    = " << dL(p) << std::endl;
 
     p1 = p - (integrate(a,p)-s*length)/dL(p);
     err = fabs(p1 - p);

@@ -35,10 +35,9 @@ protected:
     }
 
 
-
 public:
     double length;
-    Curvebase() {}; 			//default constructor
+    Curvebase() {}; 	//default constructor
     virtual double x(double s); 	//parametrized by normalized arc length
     virtual double y(double s); 	//parametrized by normalized arc length
 
@@ -51,6 +50,8 @@ public:
         return sqrt(dxp(t)*dxp(t)+dyp(t)*dyp(t));
     }
     double dyp2(double t){ return dyp(t); }
+    double print_a(void) { return a; }
+    double print_b(void) { return b; }
 
 };
 
@@ -115,11 +116,13 @@ protected:
 class xQuad: public Curvebase {
   public:
     xQuad(double cc2, double cc1, double cc0, double xx0, double xx1) :
-            c2(cc2), c1(cc1), c0(cc0), a(xx0), b(xx1) {
+            c2(cc2), c1(cc1), c0(cc0) {
+	      a = xx0;
+	      b = xx1;
         length = integrate(a,b);
     }
   protected:
-    double c2, c1, c0, a, b;
+    double c2, c1, c0;//, a, b;    HÄR VAR FELET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     double xp(double p) {return p;}
     double yp(double p) {return c2*p*p + c1*p + c0;}
     double dxp(double p) {return 1;}

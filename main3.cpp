@@ -34,7 +34,7 @@ int main()
 
   cout << "--------- NÄSTA KURVA --------------" << endl;
   // TESTA MED KURVAN VÄNSTER OM Y-AXELN
-  xQuad aa = xQuad(-2,-2,0,-1,0);
+  xQuad aa = xQuad(-2,-2,0,-1.0,0);
 
   L = aa.integrate(-1,0);
   cout << "L = " << L << endl;
@@ -52,13 +52,20 @@ int main()
   cout << "LL = " << LL << endl;
 
 
+  cout << "----------- Mer tester ----------" << endl;
   cout << a.dL2(0) << endl;
   cout << aa.dL2(0) << endl;
 
   cout << a.dyp2(0) << endl;
   cout << aa.dyp2(0) << endl;
 
+  cout << "-------- Kolla a och b: ---------" << endl;
+  cout << "a = " << a.print_a() << ", b = " << a.print_b() << endl;
+  cout << "a = " << aa.print_a() << ", b = " << aa.print_b() << endl;
+
  
+  xLine b = xLine(3,5,1);
+  cout << "a = " << b.print_a() << endl;
 
    
   return 0;
