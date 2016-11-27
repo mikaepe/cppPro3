@@ -43,13 +43,16 @@ double Curvebase::integrate(double a, double b){
  * input: p0 is initial guess for Newtons method.
  */
 double Curvebase::newtonsolve(double p0, double s) {
+
   int iter = 0, maxiter = 100;
   double tolN = 1e-4;
   double err = 10.0;
   double p1,p;
   p = p0;
   while (err > tolN && iter < maxiter) {
-    // TODO change yp to integrate(blabla) and dyp to dL(p)
+
+    std::cout << "p_newton = " << p << std::endl;
+
     p1 = p - (integrate(a,p)-s*length)/dL(p);
     err = fabs(p1 - p);
     p = p1; iter++;
@@ -69,7 +72,8 @@ double Curvebase::newtonsolve(double p0, double s) {
 // TODO compute p by Newtons method (see lecture 06) and return xp(p)
 double Curvebase::x(double s){
   double p, p0;
-  p0 = s*(b-a);
+  //p0 = s*(b-a);
+  p0 = a + s*length;	// LAGT TILL a HÄR ###############
   p = newtonsolve(p0,s);
   std::cout << "s = " << s << std::endl;
   return xp(p);
@@ -79,7 +83,8 @@ double Curvebase::x(double s){
 // TODO compute p by Newtons method (see lecture 06) and return yp(p)
 double Curvebase::y(double s){
   double p, p0;
-  p0 = s*(b-a);
+  //p0 = s*(b-a);
+  p0 = a + s*length;    // LAGT TILL a HÄR ################
   p = newtonsolve(p0,s);
   std::cout << "s_y = " << s << std::endl;
   return yp(p);
@@ -122,17 +127,3 @@ double yLine::y(double s){
 
 
 
-
-/*
-// TODO fix all this
-double xQuad::x(double s){
-  return x0 + s*(x1-x0);
-}
-
-// TODO fix all this
-double xQuad::y(double s){
-  double xx;
-  xx = x0 + s*(x1-x0);
-  return c2*xx*xx + c1*xx + c2;
-}
- */

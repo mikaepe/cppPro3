@@ -9,3 +9,4 @@ clean:
 	rm -f tstIntegrate
 	rm -f main2
 	rm -f main
+	rm -f main3

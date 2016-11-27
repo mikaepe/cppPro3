@@ -13,7 +13,6 @@ protected:
     double a;
     double b;
     int rev; // orientation of the curve
-    double length;
 
     virtual double xp(double p) = 0;	//parametrized by user
     virtual double yp(double p) = 0;	//parametrized by user
@@ -23,9 +22,6 @@ protected:
     /* integrate(double a, double b) and its supporting functions:
      * all is directly taken from project 1
      */
-
-    //double mid(double a, double b) {return 0.5*(a+b);}
-    // TODO tog bort mid, känns som onödig overhead
 
     double i2Simpson(double a, double b) {
         return iSimpson(a,0.5*(a+b)) + iSimpson(0.5*(a+b),b);
@@ -41,6 +37,7 @@ protected:
 
 
 public:
+    double length;
     Curvebase() {}; 			//default constructor
     virtual double x(double s); 	//parametrized by normalized arc length
     virtual double y(double s); 	//parametrized by normalized arc length
@@ -48,6 +45,12 @@ public:
     // TODO Move to protected, public only for testing
     double integrate(double a, double b);
     double newtonsolve(double p0, double s);
+
+    // TODO remove, for testing only
+    double dL2(double t){ 		//integrand for the length integral
+        return sqrt(dxp(t)*dxp(t)+dyp(t)*dyp(t));
+    }
+    double dyp2(double t){ return dyp(t); }
 
 };
 
@@ -98,9 +101,6 @@ protected:
     double dyp(double p){ return 1; }
     double integrate(double a, double b); //arc length integral
 };
-
-
-
 
 
 
