@@ -71,6 +71,7 @@ double Curvebase::x(double s){
   double p, p0;
   p0 = s*(b-a);
   p = newtonsolve(p0,s);
+  std::cout << "s = " << s << std::endl;
   return xp(p);
 }
 
@@ -80,6 +81,7 @@ double Curvebase::y(double s){
   double p, p0;
   p0 = s*(b-a);
   p = newtonsolve(p0,s);
+  std::cout << "s_y = " << s << std::endl;
   return yp(p);
 }
 
@@ -91,20 +93,16 @@ double Curvebase::y(double s){
 
 
 double xLine::integrate(double a, double b){
-  return (b-a);
+  return (b-a);			// Arc length integral
 };
 
-// do arc length parametrization
-double xLine::y(double s){
+double xLine::y(double s){	// Parametrized in normalized arc length coordinate
     return yConst;
 };
 
-// do arc length parametrization
-double xLine::x(double s){
-    return xStart+s*length;
+double xLine::x(double s){	// Parametrized in normalized arc length coordinate
+    return a+s*length;
 };
-
-
 
 
 
@@ -113,14 +111,12 @@ double yLine::integrate(double a, double b){
   return (b-a);
 };
 
-// do arc length parametrization
 double yLine::x(double s){
   return xC;
 };
 
-// do arc length parametrization
 double yLine::y(double s){
-  return y0+s*length;
+  return a+s*length;
 };
 
 

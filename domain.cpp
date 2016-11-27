@@ -59,6 +59,9 @@ class Domain {
 
       for (int i = 0; i<= n_; i++){
 	for (int j = 0; j<= m_; j++){
+	  std::cout << ":::::::: sx = " << i*h1 << std::endl;
+	  std::cout << ":::::::: sy = " << j*h2 << std::endl;	// TODO ta bort
+	
 	  x_[j+i*(m_+1)] = 
 	    phi2(i*h1)*sides[3]->x(j*h2) 	// left side
 	    + phi1(i*h1)*sides[1]->x(j*h2) 	// right side

@@ -10,9 +10,6 @@ class Curvebase {
 
 protected:
 
-    //double pmin;
-    //double pmax;
-
     double a;
     double b;
     int rev; // orientation of the curve
@@ -61,8 +58,8 @@ public:
 class xLine: public Curvebase{
 public:
     xLine(double xi, double xf, double y0){
-        xStart = xi;
-        xStop = xf;		//TODO use initialization lists instead??
+        a = xi;
+        b = xf;		//TODO use initialization lists instead??
         yConst = y0;
         length = xf-xi;
     }
@@ -70,8 +67,8 @@ public:
     double y(double s); //arc length parametrization
 
 protected:
-    double xStart;
-    double xStop;
+    double a;
+    double b;
     double yConst;
     double xp(double p) { return p; }
     double yp(double p) { return yConst; }
@@ -86,14 +83,14 @@ protected:
  */
 class yLine: public Curvebase{
 public:
-    yLine(double yy0, double yy1, double xxC) : y0(yy0), y1(yy1), xC(xxC) {
+    yLine(double yy0, double yy1, double xxC) : a(yy0), b(yy1), xC(xxC) {
         length = yy1 - yy0;
     }
     double x(double s); //arc length parametrization
     double y(double s); //arc length parametrization
 protected:
-    double y0;
-    double y1;
+    double a;
+    double b;
     double xC;
     double xp(double p){ return xC; }
     double yp(double p){ return p; }
@@ -128,10 +125,6 @@ class xQuad: public Curvebase {
     double dxp(double p) {return 1;}
     double dyp(double p) {return 2*c2*p + c1;}
 };
-
-
-
-
 
 
 
