@@ -71,8 +71,8 @@ public:
     double y(double s); //arc length parametrization
 
 protected:
-    double a;
-    double b;
+    //double a;           FELET ????????????????????????
+    //double b;
     double yConst;
     double xp(double p) { return p; }
     double yp(double p) { return yConst; }
@@ -87,14 +87,16 @@ protected:
  */
 class yLine: public Curvebase{
 public:
-    yLine(double yy0, double yy1, double xxC) : a(yy0), b(yy1), xC(xxC) {
-        length = yy1 - yy0;
+    yLine(double yy0, double yy1, double xxC) : xC(xxC) {
+      a = yy0;
+      b = yy1;
+      length = yy1 - yy0;
     }
     double x(double s); //arc length parametrization
     double y(double s); //arc length parametrization
 protected:
-    double a;
-    double b;
+    //double a;
+    //double b;
     double xC;
     double xp(double p){ return xC; }
     double yp(double p){ return p; }
@@ -134,12 +136,14 @@ class xQuad: public Curvebase {
 
 class fxCurve: public Curvebase{
   public:
-    fxCurve(double xx0, double xx1) : a(xx0), b(xx1) {
+    fxCurve(double xx0, double xx1) {
+      a = xx0;
+      b = xx1;
       length = integrate(a,b);
     }
     double yyp(double p) {return dyp(p);}
   protected:
-    double a,b;
+    //double a,b;
     double xp(double p) {return p;}
     double dxp(double p) {return 1.0;}
     double yp(double p) {

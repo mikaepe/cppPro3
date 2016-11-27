@@ -14,14 +14,14 @@ int main()
   yLine d = yLine(1.0,2.0,1.0);
   */
 
-  xQuad a = xQuad(-5,5,0,0,1);
-  yLine b = yLine(0,2,1);
-  xLine c = xLine(0,1,2);
-  yLine d = yLine(0,2,0);
+  fxCurve a = fxCurve(-10,5);
+  yLine b = yLine(0,3,5);
+  xLine c = xLine(-10,5,3);
+  yLine d = yLine(0,3,-10);
 
   Domain D = Domain(a,b,c,d);
   D.grid_generation(10,10);
-  D.print();
+  //D.print();
   D.writeFile();
 
 
