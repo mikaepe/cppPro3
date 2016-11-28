@@ -36,10 +36,13 @@ class Curvebase {
 
 
 
+
 /* xLine: curves for lines with constant y
  * constructor: xi - start-x, xf - end-x, y0 - constant y
  * overwrite integrate, xp, yp, dxp, dyp, x(s) and y(s)
  */
+
+/*
 class xLine: public Curvebase{
   
   public:
@@ -57,10 +60,12 @@ class xLine: public Curvebase{
 };
 
 
-/* yLine: curves for lines with constant x
+
+
+ * yLine: curves for lines with constant x
  * constructor: y0 - start-y, y1 - end-y, xC - constant x
  * overwrite integrate, xp, yp, dxp, dyp, x(s) and y(s)
- */
+ *
 class yLine: public Curvebase{
   public:
     yLine(double yy0, double yy1, double xxC);
@@ -75,27 +80,7 @@ class yLine: public Curvebase{
     double integrate(double a, double b); //arc length integral
 };
 
-
-
-
-/* xQuad: curves y = c2*x^2+c1*x+c0
- *
- * constructor:	c2, c1, c0 coefficients for quadratic curve
- * 		x0,x1 - interval boundaries for x: [x0,x1]
- *
- * overwrite xp, yp, dxp, dyp, x(s), y(s), etc... TODO
- */
-class xQuad: public Curvebase {
-  public:
-    xQuad(double cc2, double cc1, double cc0, double xx0, double xx1);
-  
-  protected:
-    double c2, c1, c0;//, a, b;    HÄR VAR FELET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    double xp(double p);
-    double yp(double p);
-    double dxp(double p);
-    double dyp(double p); 
-};
+*/
 
 
 class fxCurve: public Curvebase{

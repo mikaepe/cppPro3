@@ -1,6 +1,4 @@
 
-
-
 #include <cmath>
 #include <iostream>
 #include "curvebase.hpp"
@@ -114,7 +112,7 @@ double Curvebase::y(double s){
 
 
 
-
+/*
 // xLine ------------------------------------------
 
 xLine::xLine(double xi, double xf, double y0) {
@@ -171,26 +169,7 @@ double yLine::dxp(double p) { return 0; }
 double yLine::dyp(double p) { return 1; }
 
 
-
-// xQuad ----------------------------------------
-
-xQuad::xQuad(double cc2, double cc1, double cc0, double xx0, double xx1) {
-  c2 = cc2;
-  c1 = cc1;
-  c0 = cc0;
-  a = xx0;
-  b = xx1;
-  length = integrate(a,b);
-}
-
-double xQuad::xp(double p) { return p;}
-double xQuad::yp(double p) { return c2*p*p+c1*p + c0; }
-double xQuad::dxp(double p) { return 1; }
-double xQuad::dyp(double p) { return 2*c2*p + c1;}
-
-
-
-
+*/
 
 // fxCurve ------------------------------------
 fxCurve::fxCurve(double xx0, double xx1) {
