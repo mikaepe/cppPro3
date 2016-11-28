@@ -1,9 +1,10 @@
 #ifndef CURVEBASE_HPP
 #define CURVEBASE_HPP
 
-
 #include <cmath>
 #include <iostream>
+
+
 
 class Curvebase {
   
@@ -35,8 +36,6 @@ class Curvebase {
 
 
 
-
-
 /* xLine: curves for lines with constant y
  * constructor: xi - start-x, xf - end-x, y0 - constant y
  * overwrite integrate, xp, yp, dxp, dyp, x(s) and y(s)
@@ -58,17 +57,16 @@ class xLine: public Curvebase{
 };
 
 
-
 /* yLine: curves for lines with constant x
  * constructor: y0 - start-y, y1 - end-y, xC - constant x
  * overwrite integrate, xp, yp, dxp, dyp, x(s) and y(s)
  */
 class yLine: public Curvebase{
-public:
+  public:
     yLine(double yy0, double yy1, double xxC);
     double x(double s); //arc length parametrization
     double y(double s); //arc length parametrization
-protected:
+  protected:
     double xC;
     double xp(double p);
     double yp(double p);  
@@ -100,39 +98,17 @@ class xQuad: public Curvebase {
 };
 
 
-
-/*
-
 class fxCurve: public Curvebase{
-  public:
-    fxCurve(double xx0, double xx1) {
-      a = xx0;
-      b = xx1;
-      length = integrate(a,b);
-    }
-    double yyp(double p) {return dyp(p);}
+  public: 
+    fxCurve(double xx0, double xx1);	// Constructor
+
   protected:
-    //double a,b;
-    double xp(double p) {return p;}
-    double dxp(double p) {return 1.0;}
-    double yp(double p) {
-      if (p < -3.0) {
-	return 0.5/(1 + exp(-3.0*(p+6.0)));
-      } else {
-	return 0.5*(1.0/(1 + exp(3.0*p)));
-      }
-    }
-    double dyp(double p) {
-      if (p < -3.0) {
-	return 6.0*exp(-3.0*(p+6))*yp(p)*yp(p);
-      } else {
-	return -6.0*exp(3.0*p)*yp(p)*yp(p);
-      }
-    }
-    // konstruktor: start-x, skift-x, slut-z
-// overwrite xp, yp, dxp, dyp
+    double xp(double p);
+    double yp(double p);
+    double dxp(double p);
+    double dyp(double p);
 };
 
-*/
+
 
 #endif		// CURVEBASE_HPP

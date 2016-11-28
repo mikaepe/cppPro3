@@ -9,8 +9,6 @@
 
 Curvebase::Curvebase() {}; // Default constructor
 
-
-
 // Integration from project 1
 
 double Curvebase::i2Simpson(double a, double b) {
@@ -27,14 +25,13 @@ double Curvebase::dL(double p) {
 
 double Curvebase::integrate(double a, double b){
 
-  double tolI = 1e-4;
+  double tolI = 1e-8;
   double I = 0, I1, I2, errest;
   int node = 1;
 
   while (true) {
     I1 = iSimpson(a,b);
-    I2 = i2Simpson(a,b); // TODO tog bort här
-    //I2 = ((b-a)/6.0)*(dL(a)+4.0*dL(0.5*(a+b)) + dL(b)); // TODO ändrat till det här
+    I2 = i2Simpson(a,b); 
     errest = std::abs(I1-I2);
     if (errest < 15*tolI) { //if leaf
       I += I2;
@@ -44,8 +41,7 @@ double Curvebase::integrate(double a, double b){
 	  return I; // return if we are back at root again
 	}
 
-	//node = std::floor(0.5*node); // TODO behövs floor här?
-	node = 0.5*node;	// TODO ändrat här...
+	node = 0.5*node;	
 	a = 2*a-b;
 	tolI *= 2;
       }
@@ -69,17 +65,12 @@ double Curvebase::integrate(double a, double b){
  */
 double Curvebase::newtonsolve(double p0, double s) {
 
-  int iter = 0, maxiter = 100;
-  double tolN = 1e-4;
+  int iter = 0, maxiter = 150;
+  double tolN = 1e-6;
   double err = 10.0;
   double p1,p;
   p = p0;
-  std::cout << "a_newton = " << a << std::endl;
   while (err > tolN && iter < maxiter) {
-
-    std::cout << "p_newton = " << p << std::endl;
-    std::cout << "int(a,p) = " << integrate(a,p) << std::endl;
-    std::cout << "dL(p)    = " << dL(p) << std::endl;
 
     p1 = p - (integrate(a,p)-s*length)/dL(p);
     err = fabs(p1 - p);
@@ -103,7 +94,6 @@ double Curvebase::x(double s){
   //p0 = s*(b-a);
   p0 = a + s*length;	// LAGT TILL a HÄR ###############
   p = newtonsolve(p0,s);
-  std::cout << "s = " << s << std::endl;
   return xp(p);
 }
 
@@ -114,10 +104,8 @@ double Curvebase::y(double s){
   //p0 = s*(b-a);
   p0 = a + s*length;    // LAGT TILL a HÄR ################
   p = newtonsolve(p0,s);
-  std::cout << "s_y = " << s << std::endl;
   return yp(p);
 }
-
 
 
 
@@ -204,18 +192,29 @@ double xQuad::dyp(double p) { return 2*c2*p + c1;}
 
 
 
+// fxCurve ------------------------------------
+fxCurve::fxCurve(double xx0, double xx1) {
+  a = xx0;
+  b = xx1;
+  length = integrate(a,b);
+}
 
-
-
-
-
-
-
-
-
-
-
-
+double fxCurve::xp(double p) { return p; }
+double fxCurve::yp(double p) {
+  if (p < -3.0) {
+    return 0.5/(1.0 + exp(-3.0*(p + 6.0)));
+  } else {
+    return 0.5/(1.0 + exp(3.0*p));
+  }
+}
+double fxCurve::dxp(double p) { return 1.0; }
+double fxCurve::dyp(double p) {
+  if (p < -3.0) {
+    return 6.0*exp(-3.0*(p+6))*yp(p)*yp(p);
+  } else {
+    return -6.0*exp(3.0*p)*yp(p)*yp(p);
+  }
+}
 
 
 
