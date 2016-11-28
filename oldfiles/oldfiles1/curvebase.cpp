@@ -1,32 +1,7 @@
-
-
-
-#include <cmath>
-#include <iostream>
-#include "curvebase.hpp"
-
-
-
-Curvebase::Curvebase() {}; // Default constructor
-
-
+#include"curvebase.h"
 
 // Integration from project 1
-
-double Curvebase::i2Simpson(double a, double b) {
-  return iSimpson(a,0.5*(a+b)) + iSimpson(0.5*(a+b),b);
-}
-
-double Curvebase::iSimpson(double a, double b) {
-  return ((b-a)/6.0)*(dL(a)+4.0*dL(0.5*(a+b)) + dL(b));
-}
-
-double Curvebase::dL(double p) {
-  return sqrt(dxp(p)*dxp(p) + dyp(p)*dyp(p));
-}
-
 double Curvebase::integrate(double a, double b){
-
   double tolI = 1e-4;
   double I = 0, I1, I2, errest;
   int node = 1;
@@ -125,17 +100,6 @@ double Curvebase::y(double s){
 
 
 
-
-
-// xLine ------------------------------------------
-
-xLine::xLine(double xi, double xf, double y0) {
-  a = xi;
-  b = xf;
-  yConst = y0;
-  length = xf-xi;
-}
-
 double xLine::integrate(double a, double b){
   return (b-a);			// Arc length integral
 };
@@ -148,22 +112,8 @@ double xLine::x(double s){	// Parametrized in normalized arc length coordinate
     return a+s*length;
 };
 
-double xLine::xp(double p) { return p; }
-double xLine::yp(double p) { return yConst; }
-double xLine::dxp(double p) { return 1; }
-double xLine::dyp(double p) {return 0; }
 
 
-
-
-// yLine -------------------------------------------
-
-yLine::yLine(double y0, double y1, double xCc) {
-  a = y0;
-  b = y1;
-  xC = xCc;
-  length = y1 - y0;
-}
 
 double yLine::integrate(double a, double b){
   return (b-a);
@@ -176,47 +126,6 @@ double yLine::x(double s){
 double yLine::y(double s){
   return a+s*length;
 };
-
-double yLine::xp(double p) { return xC; }
-double yLine::yp(double p) { return p; }
-double yLine::dxp(double p) { return 0; }
-double yLine::dyp(double p) { return 1; }
-
-
-
-// xQuad ----------------------------------------
-
-xQuad::xQuad(double cc2, double cc1, double cc0, double xx0, double xx1) {
-  c2 = cc2;
-  c1 = cc1;
-  c0 = cc0;
-  a = xx0;
-  b = xx1;
-  length = integrate(a,b);
-}
-
-double xQuad::xp(double p) { return p;}
-double xQuad::yp(double p) { return c2*p*p+c1*p + c0; }
-double xQuad::dxp(double p) { return 1; }
-double xQuad::dyp(double p) { return 2*c2*p + c1;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
