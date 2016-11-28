@@ -6,6 +6,7 @@ using namespace std;
 #include "xline.hpp"
 #include "yline.hpp"
 #include "xquad.hpp"
+//#include "fxcurve.hpp"
 #include "domain.hpp"
 
 

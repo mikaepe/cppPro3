@@ -2,11 +2,11 @@
 #define XQUAD_HPP
 
 
-/* - xQuad is a derived class of the base class Curvebase. 
- * 	It is used to represent curves y = c2*x^2+c1*x+c0
- * - Constructor: c2, c1, c0 coefficients for quadratic curve, 
- *   	x0,x1 - interval boundaries for x: [x0,x1]
- * - overwrite xp, yp, dxp, dyp.
+/* xQuad is a derived class of the base class Curvebase. 
+ * It is used to represent curves y = c2*x^2+c1*x+c0
+ * Constructor: c2, c1, c0 coefficients for quadratic curve, 
+ * 	x0,x1 - interval boundaries for x: [x0,x1].
+ * Overwrite xp, yp, dxp, dyp.
  */
 
 class xQuad: public Curvebase {

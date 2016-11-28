@@ -1,9 +1,6 @@
 #ifndef DOMAIN_HPP
 #define DOMAIN_HPP
 
-
-#include <cstdio> 	// For writefile
-#include <iostream>	
 #include "curvebase.hpp"
 
 class Domain {

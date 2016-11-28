@@ -1,29 +1,28 @@
 #ifndef XLINE_HPP
 #define XLINE_HPP
 
-#include <cmath>
-#include <iostream>
 
-
-
-/* xLine: curves for lines with constant y
- * constructor: xi - start-x, xf - end-x, y0 - constant y
- * overwrite integrate, xp, yp, dxp, dyp, x(s) and y(s)
+/* xLine: curves for lines with constant y.
+ * Derived class from base class Curvebase.
+ * Constructor: y0 constant y, 
+ * 	x0, x1 interval in x: [x0, x1].
+ * Overwrite integrate, xp, yp, dxp, dyp, x(s) and y(s).
  */
+
 class xLine: public Curvebase{
-  
   public:
-    xLine(double xi, double xf, double y0);
-    double x(double s); //arc length parametrization
-    double y(double s); //arc length parametrization
+    xLine(double x0, double x1, double y0);	// Constructor
+    ~xLine();					// Destructor
+    double x(double s); 			// Grid coordinate s
+    double y(double s); 			// Grid coordinate s
   
   protected:
     double yConst;
-    double xp(double p); // { return p; }
-    double yp(double p); // { return yConst; }
-    double dxp(double p); // { return 1; }
-    double dyp(double p); // { return 0; }
-    double integrate(double a, double b); //arc length integral
+    double xp(double p); 
+    double yp(double p);
+    double dxp(double p);
+    double dyp(double p);
+    double integrate(double a, double b); 	// Arc length
 };
 
 

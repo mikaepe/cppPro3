@@ -169,7 +169,7 @@ double yLine::dxp(double p) { return 0; }
 double yLine::dyp(double p) { return 1; }
 
 
-*/
+
 
 // fxCurve ------------------------------------
 fxCurve::fxCurve(double xx0, double xx1) {
@@ -194,6 +194,8 @@ double fxCurve::dyp(double p) {
     return -6.0*exp(3.0*p)*yp(p)*yp(p);
   }
 }
+
+*/
 
 
 

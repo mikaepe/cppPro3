@@ -80,7 +80,7 @@ class yLine: public Curvebase{
     double integrate(double a, double b); //arc length integral
 };
 
-*/
+
 
 
 class fxCurve: public Curvebase{
@@ -94,6 +94,6 @@ class fxCurve: public Curvebase{
     double dyp(double p);
 };
 
-
+*/
 
 #endif		// CURVEBASE_HPP

@@ -1,5 +1,5 @@
-#include <cstdio>
-#include <iostream>
+#include <cstdio>	// for writeFile()
+#include <iostream>	
 
 #include "domain.hpp"
 #include "curvebase.hpp"

@@ -10,6 +10,9 @@ xLine::xLine(double xi, double xf, double y0) {
   length = xf-xi;
 }
 
+// Destructor
+xLine::~xLine() {};
+
 // Overwrite integrate (arc length = interval length)
 double xLine::integrate(double a, double b){
   return (b-a);			
