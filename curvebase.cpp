@@ -9,15 +9,15 @@ Curvebase::Curvebase() {}; // Default constructor
 
 // Integration from project 1
 
-double Curvebase::i2Simpson(double a, double b) {
+inline double Curvebase::i2Simpson(double a, double b) {
   return iSimpson(a,0.5*(a+b)) + iSimpson(0.5*(a+b),b);
 }
 
-double Curvebase::iSimpson(double a, double b) {
+inline double Curvebase::iSimpson(double a, double b) {
   return ((b-a)/6.0)*(dL(a)+4.0*dL(0.5*(a+b)) + dL(b));
 }
 
-double Curvebase::dL(double p) {
+inline double Curvebase::dL(double p) {
   return sqrt(dxp(p)*dxp(p) + dyp(p)*dyp(p));
 }
 

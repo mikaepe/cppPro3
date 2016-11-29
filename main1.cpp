@@ -29,6 +29,7 @@ int main()
 
   Domain D = Domain(a,b,c,d);
   D.grid_generation(50,20);
+
   //D.print();
   D.writeFile();
 

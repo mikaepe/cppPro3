@@ -4,6 +4,12 @@
 #include "domain.hpp"
 #include "curvebase.hpp"
 
+/*
+ * .cpp-file for class domain. See also domain.hpp.
+ * Constructor: Input is 4 curvebase objects
+ * 		Setting m_ = n_ = 0 and 
+ */
+
 
 // CONSTRUCTOR
 Domain::Domain(Curvebase& s1, Curvebase& s2, Curvebase& s3, Curvebase& s4) {
@@ -42,9 +48,13 @@ double Domain::phi2(double t) { return 1.0-t; }
 
 void Domain::grid_generation(int n, int m) {
   if ((n < 1) || (m < 1)) {
-    std::cout << "exit (Failure)" << std::endl; // TODO fixa nån bättre felhantering
-
+    std::cout << "Warning: Non positive grid size." << std::endl; 
+    // TODO fixa nån bättre felhantering
+    std::cout << "No grid generated" << std::endl;
+    
+    return;
   }
+  std::cout << "hej???" << std::endl;
   						// TODO kolla att x1(0) = x4(0) osv..
 
   if (n != 0) {					// or m != 0
@@ -137,6 +147,10 @@ void Domain::print() {
 }
 
 void Domain::writeFile(){
+  if (n_ < 1 || m_ < 1) {
+    std::cout << "No grid available for writeFile()" << std::endl;
+    return;
+  }
   FILE *fp;
   fp =fopen("outfile.bin","wb");
   fwrite(x_,sizeof(double),(n_+1)*(m_+1),fp);
