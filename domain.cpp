@@ -148,6 +148,8 @@ void Domain::writeFile(){
   }
   FILE *fp;
   fp =fopen("outfile.bin","wb");
+  fwrite(&n_,sizeof(int),1,fp);
+  fwrite(&m_,sizeof(int),1,fp);
   fwrite(x_,sizeof(double),(n_+1)*(m_+1),fp);
   fwrite(y_,sizeof(double),(n_+1)*(m_+1),fp);
   fclose(fp);
