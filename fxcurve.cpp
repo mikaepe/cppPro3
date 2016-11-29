@@ -28,9 +28,11 @@ double fxCurve::yp(double p) {
 double fxCurve::dxp(double p) { return 1.0; }
 double fxCurve::dyp(double p) {
   if (p < -3.0) {
-    return 6.0*exp(-3.0*(p+6))*yp(p)*yp(p);
+    //return 6.0*exp(-3.0*(p+6))*yp(p)*yp(p);
+    return 1.5*exp(3.0*(p+6))/(1.0 + 2.0*exp(3.0*(p + 6.0)) + exp(6.0*(p+6.0)));
   } else {
-    return -6.0*exp(3.0*p)*yp(p)*yp(p);
+    //return -6.0*exp(3.0*p)*yp(p)*yp(p);
+    return -1.5*exp(3.0*p)/(1.0 + 2.0*exp(3.0*p) + exp(6.0*p));
   }
 }
 
