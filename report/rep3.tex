@@ -1,0 +1,63 @@
+% REPORT FOR PROJECT2 SF2565
+
+\documentclass[a4paper,10pt]{article}
+
+%%Packages	%%%	%%%	%%%	%%%	%%%	%%%	%%%
+\usepackage{amsmath,framed}
+\usepackage[latin1]{inputenc} 	
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{placeins}
+
+%%Settings	%%%	%%%	%%%	%%%	%%%	%%%	%%%
+\renewcommand{\d}{\text{d}}
+\newcommand{\e}{\text{e}}
+\newcommand{\ve}{\mathbf}
+\newcommand\numb{\addtocounter{equation}{1}\tag{\theequation}}
+
+\setlength\fboxsep{1.2mm}
+\setlength\fboxrule{0.5mm}
+
+\lstset { %
+  language=C++,
+  backgroundcolor=\color{black!3},	% set backgroundcolor
+  basicstyle=\footnotesize,		% basic font setting
+}
+
+%%Margins	%%%	%%%	%%%	%%%	%%%	%%%	%%%
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  left=35mm,
+  right=35mm,
+  top=35mm,
+  bottom=35mm,
+}
+
+%%Header & Footer	%%%	%%%	%%%	%%%	%%%	%%%
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1pt}
+\rhead{Hanna Hultin, Mikael Perssson}
+%8509080456 mitt persnr om vi vill ha det
+\lhead{P2 SF565}
+
+\title{Project 3, SF2565}
+\author{Hanna Hultin, hhultin@kth.se, 931122-2468, TTMAM2 \\ Mikael Persson, mikaepe@kth.se, 850908-0456, TTMAM2}
+\begin{document}
+\maketitle
+\section{Task}
+
+
+\newpage
+\subsubsection*{Code}
+\lstinputlisting[language=C++,basicstyle=\scriptsize]{../curvebase.hpp}
+\lstinputlisting[language=C++,basicstyle=\scriptsize]{../curvebase.cpp}
+
+\end{document}
+
+
+
+
+
