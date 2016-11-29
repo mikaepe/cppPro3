@@ -9,6 +9,7 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{placeins}
+\usepackage{tikz}
 
 %%Settings	%%%	%%%	%%%	%%%	%%%	%%%	%%%
 \renewcommand{\d}{\text{d}}
@@ -69,6 +70,64 @@ Lastly we have the class \texttt{fxcurve}. This is a specific class used to to r
  
 
 \subsection*{Task 3: The Domain class}
+
+\begin{figure}[!ht]
+  \centering
+  \begin{tikzpicture}[scale=2.0]
+
+    \draw (0,0) -- (1,0) -- (1,1) -- (0,1) -- cycle;
+
+    \draw[color = gray] (0,.5) -- (1,.5);
+    \draw[color = gray] (.333,0) -- (.333,1);
+    \draw[color = gray] (.667,0) -- (.667,1);
+
+    \node[anchor = north] at (.333,0) {$h_1$};
+    \node[anchor = east] at (0,.5) {$h_2$};
+
+    \draw[->] (-.2,0) -- (1.2,0) node [anchor = north] {$\xi_1$};
+    \draw[->] (0,-.2) -- (0,1.2) node [anchor = east] {$\xi_2$};
+
+
+
+
+
+    \draw[color = gray, smooth, samples = 50, domain=2.21:3.09] plot(\x,
+    -0.5*0.5*\x*\x +0.5*0.3*\x*\x + 0.5*2.5*\x - 0.5*1.5*\x -0.5*3 + 0.5*3);
+
+    
+    \draw[color = gray, smooth, samples = 50, domain = 0.1:1.15] 
+    plot(0.333*\x*\x*\x-0.333*2.4*\x*\x + 0.333*1.44*\x + 0.333*2 + 0.667*0.15723*\x+0.667*3,\x); 
+    
+    \draw[color = gray, smooth, samples = 50, domain = 0.12:1.13] 
+    plot(0.667*\x*\x*\x-0.667*2.4*\x*\x + 0.667*1.44*\x + 0.667*2 + 0.333*0.15723*\x+0.333*3,\x); 
+
+    % Horizontal curves
+    \draw[smooth, samples = 50, domain=2:3] plot(\x,-0.5*\x*\x + 2.5*\x -3);
+    \draw[smooth, samples = 50, domain=2:3.2] plot(\x,0.3*\x*\x - 1.5*\x +3);
+
+
+    % Vertical curves
+    \draw[smooth, samples = 50, domain = 0:1.2] plot(\x*\x*\x-2.4*\x*\x + 1.44*\x + 2, \x); 
+    \draw[smooth, samples = 50, domain = 0:1.272] plot(0.15723*\x+3,\x);
+ 
+
+
+  \end{tikzpicture}
+
+
+  \begin{minipage}[t]{80mm}
+    \caption{
+      TODO caption
+    }
+    
+    \label{FIG_jjj}
+  \end{minipage}
+\end{figure}
+
+
+
+
+
 In this task we designed the class Domain which is a general class for modelling 4-sided domains and structured grids on them. This class takes references to four objects of type \texttt{Curvebase} as arguments to the constructor. The curves represented by these \texttt{Curvebase} objects are then the four sides of the \texttt{Domain}. 
 
 
