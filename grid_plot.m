@@ -1,4 +1,4 @@
-n = 20; m = 10; 
+n = 50; m = 20; 
 fID = fopen('outfile.bin');
 A = fread(fID,[(n+1)*(m+1) 2],'double');
 fclose(fID);

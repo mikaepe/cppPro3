@@ -8,8 +8,6 @@ class Domain {
     Curvebase * sides[4];
     int m_, n_;
     double *x_,*y_;	
-    double *xLo,*xRi,*xTo,*xLe;
-    double *yLo,*yRi,*yTo,*yLe;
 
     // Linear interpolation functions
     double phi1(double t);
