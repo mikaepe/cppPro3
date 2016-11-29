@@ -41,9 +41,10 @@ double Domain::phi1(double t) { return t; }
 double Domain::phi2(double t) { return 1.0-t; }
 
 void Domain::grid_generation(int n, int m) {
-  if ((n < 1) || (m < 1))
+  if ((n < 1) || (m < 1)) {
     std::cout << "exit (Failure)" << std::endl; // TODO fixa nån bättre felhantering
 
+  }
   						// TODO kolla att x1(0) = x4(0) osv..
 
   if (n != 0) {					// or m != 0
