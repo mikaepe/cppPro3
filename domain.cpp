@@ -10,24 +10,23 @@
  */
 
 
-// CONSTRUCTOR
+// CONSTRUCTOR --------------------------------------------------------
 Domain::Domain(Curvebase& s1, Curvebase& s2, Curvebase& s3, Curvebase& s4) {
   sides[0] = &s1;
   sides[1] = &s2;
   sides[2] = &s3;
   sides[3] = &s4;
 
-  /*
-  if (~checkCorners()) {
+  cornersOk = checkCorners();		// Indicator for corners connected
+  if (cornersOk == false) {
     sides[0] = sides[1] = sides[2] = sides[3] = NULL;
   }
-  */
 
-  m_ = n_ = 0;				// number of grid points
-  x_ = y_ = NULL;			// arrays for grid coordinates
+  m_ = n_ = 0;				// Number of grid points
+  x_ = y_ = NULL;			// Arrays for grid coordinates
 }
 
-// DESTRUCTOR
+// DESTRUCTOR ---------------------------------------------------------
 Domain::~Domain() {		
   if (m_ > 0) {		// Could as well check if n_>0, since both
     delete [] x_;	// need to be positive to generate the grid
@@ -54,9 +53,11 @@ void Domain::grid_generation(int n, int m) {
     std::cout << "Warning: Non positive grid size." << std::endl; 
     std::cout << "No grid generated" << std::endl;
     return; 				// No grid is generated
+  } else if (cornersOk == false) {
+    // Dont generate grid if corners are disconnected
+    std::cout << "No grid generated (corner disconnected)" << std::endl;
+    return;				// No grid is generated
   }
-
-  					// TODO kolla att x1(0) = x4(0) osv..
 
   if (n != 0) {				// Reset the arrays
     delete[] x_; 
@@ -141,23 +142,26 @@ void Domain::grid_generation(int n, int m) {
   delete[] yLe; 
 }
 
-// TODO
 
+// Function to check if the boundaries are connected (corners)
 bool Domain::checkCorners() {
-  if (fabs(sides[0]->x(1) - sides[1]->x(0)) > 1e-6 || 
-      fabs(sides[0]->y(1) - sides[1]->y(0) > 1e-6)) {
+  if (fabs(sides[0]->x(1) - sides[1]->x(0)) > 1e-4 || 
+      fabs(sides[0]->y(1) - sides[1]->y(0)) > 1e-4) {
     std::cout << "Low-Right corner disconnected" << std::endl;
     return false;
-  } else if (fabs(sides[1]->x(1) - sides[2]->x(1)) > 1e-6 || 
-      fabs(sides[1]->y(1) - sides[2]->y(1) > 1e-6)) {
+  } 
+  if (fabs(sides[1]->x(1) - sides[2]->x(1)) > 1e-4 || 
+      fabs(sides[1]->y(1) - sides[2]->y(1)) > 1e-4) {
     std::cout << "Top-Right corner disconnected" << std::endl;
     return false;
-  } else if (fabs(sides[2]->x(0) - sides[3]->x(1)) > 1e-6 || 
-      fabs(sides[2]->y(0) - sides[3]->y(1) > 1e-6)) {
+  } 
+  if (fabs(sides[2]->x(0) - sides[3]->x(1) > 1e-4) || 
+      fabs(sides[2]->y(0) - sides[3]->y(1) > 1e-4)) {
     std::cout << "Top-Left corner disconnected" << std::endl;
     return false;
-  } else if (fabs(sides[3]->x(0) - sides[0]->x(0)) > 1e-6 || 
-      fabs(sides[3]->y(0) - sides[0]->y(0) > 1e-6)) {
+  } 
+  if (fabs(sides[3]->x(0) - sides[0]->x(0)) > 1e-4 || 
+      fabs(sides[3]->y(0) - sides[0]->y(0)) > 1e-4) {
     std::cout << "Low-Left corner disconnected" << std::endl;
     return false;
   }
@@ -168,6 +172,10 @@ bool Domain::checkCorners() {
 
 // Print (for testing) the grid coordinates: Careful if n,m are large.
 void Domain::print() {	
+  if (n_ < 1 || m_ < 1) {
+    std::cout << "No grid to print" << std::endl;
+    return;
+  }
   for (int i = 0; i < (n_+1)*(m_+1); i++) {
     std::cout << "[" << x_[i] << "," << y_[i] << "]" << std::endl;
   }

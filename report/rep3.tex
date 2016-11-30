@@ -59,7 +59,7 @@ The unit square $R = [0,1]\times[0,1]$ is discretized using
   \xi_{1,i} &= i h_1,\quad i = 0,1,\dots,n, \\
   \xi_{2,j} &= j h_2,\quad j = 0,1,\dots,m.
 \end{align*}
-where $h_1 = 1/n$ and $h_2 = 1/m$. Define linear interpolation functions $\phi_1(x) = 1$ and
+where $h_1 = 1/n$ and $h_2 = 1/m$. See Figure \ref{FIG_grid}. Define linear interpolation functions $\phi_1(x) = 1$ and
 $\phi_2(x) = 1-x$.
 Assuming bijective maps $\Phi_1 : [0,1] \mapsto \ve{x}_1(p_1)$ and similarly for the three other
 boundaries, the grid may now be generated using the algebraic grid generation formula:
@@ -139,7 +139,7 @@ boundaries, the grid may now be generated using the algebraic grid generation fo
       $[0,1]\times [0,1]$ to the boundary curves of the domain $D$.
     }
     
-    \label{FIG_jjj}
+    \label{FIG_grid}
   \end{minipage}
 \end{figure}
 
@@ -175,7 +175,7 @@ The class \texttt{Domain} has a public member function called \texttt{grid\_gene
 \subsection*{Task 4: Writing the grid to a file and plotting it in Matlab}
 To be able to write the generated grid to a file we added the public function \texttt{writeFile} to our class \texttt{Domain}. This function opens a binary file and writes first all the $x$-values for the grid points and then the $y$-values for all the grid points before closing the file. 
 
-We then opened the binary file in Matlab and plotted the grid points. 
+We then opened the binary file in Matlab and plotted the grid points. See Figure \ref{FIG_jjj}.
 
 \begin{figure}[!ht]
   \centering

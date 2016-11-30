@@ -4,11 +4,12 @@
 #include "curvebase.hpp"
 
 
-
 Curvebase::Curvebase() {}; // Default constructor
 
-// Integration from project 1
 
+/* Integrate , i2Simpson, iSimpson all taken
+ * directly from project 1.
+ */
 inline double Curvebase::i2Simpson(double a, double b) {
   return iSimpson(a,0.5*(a+b)) + iSimpson(0.5*(a+b),b);
 }
@@ -56,6 +57,7 @@ double Curvebase::integrate(double a, double b){
   return I;
 }
 
+
 /* Newton solver for equation f(p) = l(p) - s*l(b)
  * input: p0 is initial guess for Newtons method.
  */
@@ -63,17 +65,17 @@ double Curvebase::newtonsolve(double p0, double s) {
 
   int iter = 0, maxiter = 150;
   double tolN = 1e-6;
-  double err = 10.0;
+  double err = 1.0;	
   double p1,p;
   p = p0;
   while (err > tolN && iter < maxiter) {
 
-    p1 = p - (integrate(a,p)-s*length)/dL(p);
-    err = fabs(p1 - p);
-    p = p1; iter++;
+    p1 = p - (integrate(a,p)-s*length)/dL(p);	// Newtons method
+    err = fabs(p1 - p);				// Check error
+    p = p1; iter++;				// Update
   }
 
-  if (iter == maxiter) {
+  if (iter == maxiter) {			// maxiter reached
     std::cout << "No convergence in Newton solver" << std::endl;
   }
 
@@ -81,24 +83,19 @@ double Curvebase::newtonsolve(double p0, double s) {
 }
 
 
-
-
-// do arc length parametrization
+// Curve parametrized by grid coordinate
 double Curvebase::x(double s){
   double p, p0;
-  p0 = a + s*length;
+  p0 = a + s*length;				// Initial guess for Newtons meth.
   p = newtonsolve(p0,s);
   return xp(p);
 }
 
-// do arc length parametrization
+// Curve parametrized by grid coordinate
 double Curvebase::y(double s){
   double p, p0;
-  p0 = a + s*length;
+  p0 = a + s*length;				// Initial guess for Newtons meth.
   p = newtonsolve(p0,s);
   return yp(p);
 }
-
-
-
 

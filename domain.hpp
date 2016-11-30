@@ -8,6 +8,7 @@ class Domain {
     Curvebase * sides[4];		// Pointers to curves of the 4 sides
     int m_, n_;				// # of grid points in x and y
     double *x_,*y_;			// Arrays for coordinates in grid
+    bool cornersOk;
 
     double phi1(double t);		// Linear interpolation functions
     double phi2(double t);		
@@ -23,11 +24,7 @@ class Domain {
     void grid_generation(int n, int m);	// Generates the grid (x_ and y_)
     void print();			// Print points of grid to console
     void writeFile();			// Write points to .bin-file (use matlab to view)
-
-
-    // TODO 
-
-    bool checkCorners();
+    bool checkCorners();		// Check if corners are connected
 };
 
 #endif //DOMAIN_HPP
