@@ -23,6 +23,11 @@ class Domain {
     void grid_generation(int n, int m);	// Generates the grid (x_ and y_)
     void print();			// Print points of grid to console
     void writeFile();			// Write points to .bin-file (use matlab to view)
+
+
+    // TODO 
+
+    bool checkCorners();
 };
 
 #endif //DOMAIN_HPP

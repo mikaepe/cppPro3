@@ -1,5 +1,6 @@
 #include <cstdio>	// for writeFile()
 #include <iostream>	
+#include <cmath>	// for fabs
 
 #include "domain.hpp"
 #include "curvebase.hpp"
@@ -15,6 +16,12 @@ Domain::Domain(Curvebase& s1, Curvebase& s2, Curvebase& s3, Curvebase& s4) {
   sides[1] = &s2;
   sides[2] = &s3;
   sides[3] = &s4;
+
+  /*
+  if (~checkCorners()) {
+    sides[0] = sides[1] = sides[2] = sides[3] = NULL;
+  }
+  */
 
   m_ = n_ = 0;				// number of grid points
   x_ = y_ = NULL;			// arrays for grid coordinates
@@ -48,6 +55,7 @@ void Domain::grid_generation(int n, int m) {
     std::cout << "No grid generated" << std::endl;
     return; 				// No grid is generated
   }
+
   					// TODO kolla att x1(0) = x4(0) osv..
 
   if (n != 0) {				// Reset the arrays
@@ -132,6 +140,31 @@ void Domain::grid_generation(int n, int m) {
   delete[] yTo;
   delete[] yLe; 
 }
+
+// TODO
+
+bool Domain::checkCorners() {
+  if (fabs(sides[0]->x(1) - sides[1]->x(0)) > 1e-6 || 
+      fabs(sides[0]->y(1) - sides[1]->y(0) > 1e-6)) {
+    std::cout << "Low-Right corner disconnected" << std::endl;
+    return false;
+  } else if (fabs(sides[1]->x(1) - sides[2]->x(1)) > 1e-6 || 
+      fabs(sides[1]->y(1) - sides[2]->y(1) > 1e-6)) {
+    std::cout << "Top-Right corner disconnected" << std::endl;
+    return false;
+  } else if (fabs(sides[2]->x(0) - sides[3]->x(1)) > 1e-6 || 
+      fabs(sides[2]->y(0) - sides[3]->y(1) > 1e-6)) {
+    std::cout << "Top-Left corner disconnected" << std::endl;
+    return false;
+  } else if (fabs(sides[3]->x(0) - sides[0]->x(0)) > 1e-6 || 
+      fabs(sides[3]->y(0) - sides[0]->y(0) > 1e-6)) {
+    std::cout << "Low-Left corner disconnected" << std::endl;
+    return false;
+  }
+  return true;
+}
+
+
 
 // Print (for testing) the grid coordinates: Careful if n,m are large.
 void Domain::print() {	
